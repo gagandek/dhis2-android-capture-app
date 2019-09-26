@@ -415,29 +415,29 @@ public class EventInitialPresenter implements EventInitialContract.Presenter {
         //TODO: APPLY RULE EFFECTS TO ALL MODELS
         view.setHideSection(null);
         for (RuleEffect ruleEffect : calcResult.items()) {
-            RuleAction ruleAction = ruleEffect.ruleAction();
+            RuleAction ruleAction = ruleEffect.getRuleAction();
             if (ruleAction instanceof RuleActionShowWarning) {
                 RuleActionShowWarning showWarning = (RuleActionShowWarning) ruleAction;
-                FieldViewModel model = fieldViewModels.get(showWarning.field());
+                FieldViewModel model = fieldViewModels.get(showWarning.getField());
 
                 if (model instanceof EditTextViewModel) {
-                    fieldViewModels.put(showWarning.field(),
-                            ((EditTextViewModel) model).withWarning(showWarning.content()));
+                    fieldViewModels.put(showWarning.getField(),
+                            ((EditTextViewModel) model).withWarning(showWarning.getContent()));
                 }
             } else if (ruleAction instanceof RuleActionShowError) {
                 RuleActionShowError showError = (RuleActionShowError) ruleAction;
-                FieldViewModel model = fieldViewModels.get(showError.field());
+                FieldViewModel model = fieldViewModels.get(showError.getField());
 
                 if (model instanceof EditTextViewModel) {
-                    fieldViewModels.put(showError.field(),
-                            ((EditTextViewModel) model).withError(showError.content()));
+                    fieldViewModels.put(showError.getField(),
+                            ((EditTextViewModel) model).withError(showError.getContent()));
                 }
             } else if (ruleAction instanceof RuleActionHideField) {
                 RuleActionHideField hideField = (RuleActionHideField) ruleAction;
-                fieldViewModels.remove(hideField.field());
+                fieldViewModels.remove(hideField.getField());
             } else if (ruleAction instanceof RuleActionHideSection) {
                 RuleActionHideSection hideSection = (RuleActionHideSection) ruleAction;
-                view.setHideSection(hideSection.programStageSection());
+                view.setHideSection(hideSection.getProgramStageSection());
             }
         }
     }

@@ -131,9 +131,9 @@ public class EventDetailPresenter implements EventDetailContracts.Presenter {
                 formFragment.getDatesLayout().getRootView().requestFocus();
                 new Handler().postDelayed(() -> {
                     if (formFragment.hasErrorOnComple() != null) { //Checks if there is an error action to display
-                        view.showInfoDialog(view.getContext().getString(R.string.error), formFragment.hasErrorOnComple().content());
+                        view.showInfoDialog(view.getContext().getString(R.string.error), formFragment.hasErrorOnComple().getContent());
                     } else if (formFragment.hasError() != null) {
-                        view.showInfoDialog(view.getContext().getString(R.string.error), formFragment.hasError().content());
+                        view.showInfoDialog(view.getContext().getString(R.string.error), formFragment.hasError().getContent());
                     } else {
                         if (formFragment.isAdded() && formFragment.getContext() != null) {
                             List<Fragment> sectionFragments = formFragment.getChildFragmentManager().getFragments();

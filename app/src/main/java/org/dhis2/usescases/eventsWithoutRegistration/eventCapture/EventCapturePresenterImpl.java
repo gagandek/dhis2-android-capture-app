@@ -782,7 +782,7 @@ public class EventCapturePresenterImpl implements EventCaptureContract.Presenter
     @Override
     public void setShowError(@NonNull RuleActionShowError showError, @Nullable FieldViewModel model) {
         canComplete = false;
-        errors.put(eventCaptureRepository.getSectionFor(showError.field()), showError.field());
+        errors.put(eventCaptureRepository.getSectionFor(showError.getField()), showError.getField());
     }
 
     @Override

@@ -37,7 +37,7 @@ class RuleEngineUtils {
         fun translateToRules(programRules: List<ProgramRule>, programStage: String): List<Rule> {
             val rules = translateToRules(programRules)
             return rules.filter {
-                it.programStage() == null || it.programStage().equals(programStage)
+                it.programStage == null || it.programStage.equals(programStage)
             }
         }
 
@@ -86,7 +86,7 @@ class RuleEngineUtils {
                     enrollment.organisationUnit()!!,
                     d2.organisationUnitModule().organisationUnits.uid(enrollment.organisationUnit()).blockingGet().code(),
                     translateToRuleAttributeValue(attributeValues),
-                    d2.programModule().programs.uid(enrollment.program()).blockingGet().name()
+                    d2.programModule().programs.uid(enrollment.program()).blockingGet().name()!!
             )
         }
 

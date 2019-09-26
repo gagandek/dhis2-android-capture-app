@@ -185,39 +185,39 @@ public class EventSummaryInteractor implements EventSummaryContract.Interactor {
         view.setHideSection(null);
 
         for (RuleEffect ruleEffect : calcResult.items()) {
-            RuleAction ruleAction = ruleEffect.ruleAction();
+            RuleAction ruleAction = ruleEffect.getRuleAction();
             if (ruleAction instanceof RuleActionShowWarning) {
                 RuleActionShowWarning showWarning = (RuleActionShowWarning) ruleAction;
-                FieldViewModel model = fieldViewModels.get(showWarning.field());
+                FieldViewModel model = fieldViewModels.get(showWarning.getField());
                 if (model != null)
-                    fieldViewModels.put(showWarning.field(), model.withWarning(showWarning.content()));
+                    fieldViewModels.put(showWarning.getField(), model.withWarning(showWarning.getContent()));
                 else
-                    Log.d("PR_FIELD_ERROR", String.format("Field with uid %s is missing", showWarning.field()));
+                    Log.d("PR_FIELD_ERROR", String.format("Field with uid %s is missing", showWarning.getField()));
             } else if (ruleAction instanceof RuleActionShowError) {
                 RuleActionShowError showError = (RuleActionShowError) ruleAction;
-                FieldViewModel model = fieldViewModels.get(showError.field());
+                FieldViewModel model = fieldViewModels.get(showError.getField());
                 if (model != null)
-                    fieldViewModels.put(showError.field(), model.withError(showError.content()));
+                    fieldViewModels.put(showError.getField(), model.withError(showError.getContent()));
                 else
-                    Log.d("PR_FIELD_ERROR", String.format("Field with uid %s is missing", showError.field()));
+                    Log.d("PR_FIELD_ERROR", String.format("Field with uid %s is missing", showError.getField()));
                 view.fieldWithError(true);
             } else if (ruleAction instanceof RuleActionHideField) {
                 RuleActionHideField hideField = (RuleActionHideField) ruleAction;
-                fieldViewModels.remove(hideField.field());
+                fieldViewModels.remove(hideField.getField());
             } else if (ruleAction instanceof RuleActionWarningOnCompletion) {
                 RuleActionWarningOnCompletion warningOnCompletion = (RuleActionWarningOnCompletion) ruleAction;
-                view.messageOnComplete(warningOnCompletion.content(), true);
+                view.messageOnComplete(warningOnCompletion.getContent(), true);
             } else if (ruleAction instanceof RuleActionErrorOnCompletion) {
                 RuleActionErrorOnCompletion errorOnCompletion = (RuleActionErrorOnCompletion) ruleAction;
-                view.messageOnComplete(errorOnCompletion.content(), false);
+                view.messageOnComplete(errorOnCompletion.getContent(), false);
             } else if (ruleAction instanceof RuleActionSetMandatoryField) {
                 RuleActionSetMandatoryField mandatoryField = (RuleActionSetMandatoryField) ruleAction;
-                FieldViewModel model = fieldViewModels.get(mandatoryField.field());
+                FieldViewModel model = fieldViewModels.get(mandatoryField.getField());
                 if (model != null)
-                    fieldViewModels.put(mandatoryField.field(), model.setMandatory());
+                    fieldViewModels.put(mandatoryField.getField(), model.setMandatory());
             } else if (ruleAction instanceof RuleActionHideSection) {
                 RuleActionHideSection hideSection = (RuleActionHideSection) ruleAction;
-                view.setHideSection(hideSection.programStageSection());
+                view.setHideSection(hideSection.getProgramStageSection());
             }
         }
     }

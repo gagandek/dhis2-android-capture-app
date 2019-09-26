@@ -6,7 +6,6 @@ import android.database.Cursor;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.squareup.sqlbrite2.BriteDatabase;
 
 import org.dhis2.data.forms.dataentry.fields.FieldViewModel;
@@ -197,7 +196,7 @@ public class EventRepository implements FormRepository {
                                     .build().toEngineBuilder();
                             builder.triggerEnvironment(TriggerEnvironment.ANDROIDCLIENT);
                             builder.events(events);
-                            if (!isEmpty(enrollment.enrollment()))
+                            if (!isEmpty(enrollment.getEnrollment()))
                                 builder.enrollment(enrollment);
                             return builder.build();
                         }))
@@ -226,7 +225,7 @@ public class EventRepository implements FormRepository {
                                     .build().toEngineBuilder();
                             builder.triggerEnvironment(TriggerEnvironment.ANDROIDCLIENT);
                             builder.events(events);
-                            if (!isEmpty(enrollment.enrollment()))
+                            if (!isEmpty(enrollment.getEnrollment()))
                                 builder.enrollment(enrollment);
                             return builder.build();
                         }))

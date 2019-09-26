@@ -105,19 +105,19 @@ public class IndicatorsPresenterImpl implements IndicatorsContracts.Presenter {
         }
 
         for (RuleEffect ruleEffect : calcResult.items()) {
-            RuleAction ruleAction = ruleEffect.ruleAction();
-            if (!ruleEffect.data().contains("#{")) //Avoid display unavailable variables
+            RuleAction ruleAction = ruleEffect.getRuleAction();
+            if (!ruleEffect.getData().contains("#{")) //Avoid display unavailable variables
                 if (ruleAction instanceof RuleActionDisplayKeyValuePair) {
                     Trio<ProgramIndicator, String, String> indicator = Trio.create(
                             ProgramIndicator.builder()
-                                    .uid(((RuleActionDisplayKeyValuePair) ruleAction).content())
-                                    .displayName(((RuleActionDisplayKeyValuePair) ruleAction).content())
+                                    .uid(((RuleActionDisplayKeyValuePair) ruleAction).getContent())
+                                    .displayName(((RuleActionDisplayKeyValuePair) ruleAction).getContent())
                                     .build(),
-                            ruleEffect.data(), "");
+                            ruleEffect.getData(), "");
                     indicators.add(indicator);
                 } else if (ruleAction instanceof RuleActionDisplayText) {
                     Trio<ProgramIndicator, String, String> indicator = Trio.create(null,
-                            ((RuleActionDisplayText) ruleAction).content() + ruleEffect.data(), "");
+                            ((RuleActionDisplayText) ruleAction).getContent() + ruleEffect.getData(), "");
                     indicators.add(indicator);
                 }
         }

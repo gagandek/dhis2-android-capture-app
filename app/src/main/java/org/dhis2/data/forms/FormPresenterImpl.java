@@ -276,19 +276,19 @@ class FormPresenterImpl implements FormPresenter {
 
     private void applyRuleFieldViewsEffects(Map<String, FieldViewModel> fieldViewModels, Result<RuleEffect> calcResult) {
         for (RuleEffect ruleEffect : calcResult.items()) {
-            RuleAction ruleAction = ruleEffect.ruleAction();
+            RuleAction ruleAction = ruleEffect.getRuleAction();
 
             if (ruleAction instanceof RuleActionHideField) {
                 RuleActionHideField hideField = (RuleActionHideField) ruleAction;
-                fieldViewModels.remove(hideField.field());
+                fieldViewModels.remove(hideField.getField());
             } else if (ruleAction instanceof RuleActionHideSection) {
                 RuleActionHideSection hideSection = (RuleActionHideSection) ruleAction;
-                fieldViewModels.remove(hideSection.programStageSection());
+                fieldViewModels.remove(hideSection.getProgramStageSection());
             } else if (ruleAction instanceof RuleActionSetMandatoryField) {
                 RuleActionSetMandatoryField mandatoryField = (RuleActionSetMandatoryField) ruleAction;
-                FieldViewModel model = fieldViewModels.get(mandatoryField.field());
+                FieldViewModel model = fieldViewModels.get(mandatoryField.getField());
                 if (model != null)
-                    fieldViewModels.put(mandatoryField.field(), model.setMandatory());
+                    fieldViewModels.put(mandatoryField.getField(), model.setMandatory());
             }
         }
     }
@@ -323,15 +323,15 @@ class FormPresenterImpl implements FormPresenter {
         view.setWarningOnCompletion(null);
         view.setShowError(null);
         for (RuleEffect ruleEffect : calcResult.items()) {
-            RuleAction ruleAction = ruleEffect.ruleAction();
+            RuleAction ruleAction = ruleEffect.getRuleAction();
 
             if (ruleAction instanceof RuleActionHideSection) {
                 RuleActionHideSection hideSection = (RuleActionHideSection) ruleAction;
-                fieldViewModels.remove(hideSection.programStageSection());
+                fieldViewModels.remove(hideSection.getProgramStageSection());
             } else if (ruleAction instanceof RuleActionWarningOnCompletion) {
                 RuleActionWarningOnCompletion warningOnCompletion = (RuleActionWarningOnCompletion) ruleAction;
                 view.setWarningOnCompletion(warningOnCompletion);
-                view.messageOnComplete(warningOnCompletion.content(), true);
+                view.messageOnComplete(warningOnCompletion.getContent(), true);
             } else if (ruleAction instanceof RuleActionErrorOnCompletion) {
                 RuleActionErrorOnCompletion errorOnCompletion = (RuleActionErrorOnCompletion) ruleAction;
                 view.setErrorOnCompletion(errorOnCompletion);

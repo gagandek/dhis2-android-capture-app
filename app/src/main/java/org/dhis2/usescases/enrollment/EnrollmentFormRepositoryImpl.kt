@@ -56,7 +56,7 @@ class EnrollmentFormRepositoryImpl(
                         })
                         .cacheWithInitialCapacity(1)
 
-        this.ruleEnrollmentBuilder = RuleEnrollment.builder()
+        ruleEnrollmentBuilder = RuleEnrollment.builder()
                 .enrollment(enrollmentRepository.blockingGet().uid())
                 .incidentDate(if (enrollmentRepository.blockingGet().incidentDate() == null) enrollmentRepository.blockingGet().enrollmentDate() else enrollmentRepository.blockingGet().incidentDate())
                 .enrollmentDate(enrollmentRepository.blockingGet().enrollmentDate())
@@ -210,7 +210,7 @@ class EnrollmentFormRepositoryImpl(
     }
 
     private fun queryAttributes(): Flowable<List<RuleAttributeValue>> {
-        return programRepository.get()
+        return d2.programModule().programs.withProgramTrackedEntityAttributes().uid(programUid).get()
                 .map { program ->
                     program.programTrackedEntityAttributes()!!.filter {
                         d2.trackedEntityModule().trackedEntityAttributeValues
